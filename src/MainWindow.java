@@ -32,7 +32,6 @@ public class MainWindow extends JFrame {
 	private JLabel img2;
 	private JRadioButton sequentialButton;
 	private JRadioButton parallelButton;
-	private JRadioButton distributedButton;
 	private ButtonGroup processingGroup;
 
 	public MainWindow() {
@@ -96,9 +95,6 @@ public class MainWindow extends JFrame {
 				} else if (parallelButton.isSelected()) {
 					parallel.convolution(Path1, kernelMatrix, fac);
 					insertImg("src/Temp/temp.jpg", img2);
-				} else if (distributedButton.isSelected()) {
-					JOptionPane.showMessageDialog(this, "Not implemented yet.", "Info",
-							JOptionPane.INFORMATION_MESSAGE);
 				}
 			} catch (IOException ex) {
 				throw new RuntimeException(ex);
@@ -113,19 +109,16 @@ public class MainWindow extends JFrame {
 
 		sequentialButton = new JRadioButton("Sequential", true);
 		parallelButton = new JRadioButton("Parallel");
-		distributedButton = new JRadioButton("Distributed");
 
 		processingGroup = new ButtonGroup();
 
 		processingGroup.add(sequentialButton);
 		processingGroup.add(parallelButton);
-		processingGroup.add(distributedButton);
 
 		JPanel radioPanel = new JPanel();
 
 		radioPanel.add(sequentialButton);
 		radioPanel.add(parallelButton);
-		radioPanel.add(distributedButton);
 
 		panel.setLayout(new BorderLayout());
 		panel.add(radioPanel, BorderLayout.NORTH);
