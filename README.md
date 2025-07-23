@@ -13,16 +13,6 @@ This project implements image convolution processing using different approaches:
 - `src/Kernels.java` - Predefined convolution kernels
 - `src/MainWindow.java` - GUI interface
 
-## Compile with MPI
-
-```bash
-# Compile with MPI support
-javac -cp ".:mpi.jar" src/*.java
-
-# Run with MPI (example with 4 processes)
-mpirun -np 4 java -cp ".:mpi.jar:src" Main
-```
-
 ## Running the Application
 
 ### Sequential Processing and Parallel Processing:
@@ -35,28 +25,33 @@ mpirun -np 4 java -cp ".:mpi.jar:src" Main
 
 ### Distributed Processing:
 
-1. Compile the distributed.java and DistributedLauncher.java
-2. Run the command with desired arguments (img and kernel)
+1. Compile the distributed.java and DistributedLauncher.java in cmd
+2. Run the command with desired arguments (img and kernel) in cmd
 3. Check the result: Temp/temp.jpg
 4. the elapsed time, status and worker information are printed in the terminal
 
 ```bash
 # Compile first run from root of project
 
-javac -cp ".:mpi.jar" src/*.java
+javac -cp ".;C:\\Program Files\\mpj-v0_44\\lib\\*" -Xlint:unchecked src\\*.java
 #or
-javac -cp "C:\<path_to_mpj>\lib\*;src" src\*.java
+javac -cp ".;C:\\<path_to_mpj>\\lib\\*" -Xlint:unchecked src\\*.java
+
 
 # Run Distrubuted
-# p - number of processes to run with (min 2), img - (1-10) where 1 is the smalles, kernel (1-4) in order: edge detection, sharpen, blur, emboss
+# workers - number of processes to run with (min 2), img - (0-9) where 0 is the smallest, kernel (1-4) in order: edge detection, sharpen, blur, emboss
 # if img and kernel are not defiend the defaults are 1 1
 # run from root of project
+# example on how to run with 4 workers on the 0th img and 1st kernel:
+# "C:\Program Files\mpj-v0_44\bin\mpjrun.bat" -np 4 -cp src DistributedLauncher 0 1
 
-mpirun -np <p> java -cp ".:mpi.jar:src" DistributedLauncher <img> <kernel>
+"C:\<path-to-mpj-v0_44>\bin\mpjrun.bat" -np <workers> -cp src DistributedLauncher <img> <kernel>
+
+# Check the result: Temp/temp.jpg
 ```
 
 ## Dependencies
 
 - Java 8 or higher
 - OpenMPI 4.1 or higher
-- MPI Java bindings (mpi.jar)
+- mpj-v0_44
